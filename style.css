@@ -90,6 +90,47 @@
   .links a:hover {
     text-decoration: underline;
   }
+
+.project-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; /* Responsive for smaller screens */
+}
+
+.project-text {
+  flex: 1 1 400px;
+}
+
+.project-image {
+  flex: 0 0 280px;
+}
+
+.project-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Optional: make sure captions or text spacing looks clean */
+.project-item h3 {
+  margin-top: 0;
+}
+
+/* Responsive tweaks */
+@media (max-width: 700px) {
+  .project-item {
+    flex-direction: column;
+  }
+
+  .project-image {
+    flex: 1 1 100%;
+    margin-top: 1rem;
+  }
+}
+
   
   @media (max-width: 600px) {
     header {
