@@ -23,3 +23,37 @@ nextBtn.addEventListener('click', () => {
 
 // Initialize
 showImage(current);
+
+
+const dotsContainer = document.querySelector('.carousel-dots');
+
+// Create dots
+images.forEach((_, index) => {
+  const dot = document.createElement('span');
+  if (index === current) dot.classList.add('active');
+  dot.addEventListener('click', () => {
+    current = index;
+    showImage(current);
+    updateDots();
+  });
+  dotsContainer.appendChild(dot);
+});
+
+function updateDots() {
+  const dots = document.querySelectorAll('.carousel-dots span');
+  dots.forEach(dot => dot.classList.remove('active'));
+  dots[current].classList.add('active');
+}
+
+// Update dots on prev/next
+prevBtn.addEventListener('click', () => {
+  current = (current - 1 + images.length) % images.length;
+  showImage(current);
+  updateDots();
+});
+
+nextBtn.addEventListener('click', () => {
+  current = (current + 1) % images.length;
+  showImage(current);
+  updateDots();
+});
