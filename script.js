@@ -13,7 +13,7 @@ function showImage(index) {
 
 nextBtn.addEventListener('click', () => {
   // Left arrow should go **back**
-    current = (current + 1) % images.length;
+    // current = (current + 1) % images.length;
 
   // current = (current - 1 + images.length) % images.length;
   showImage(current);
