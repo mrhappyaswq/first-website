@@ -18,9 +18,11 @@ nextBtn.addEventListener('click', () => {
   updateDots();
 });
 
-nextBtn.addEventListener('click', () => {
+prevBtn.addEventListener('click', () => {
   // Right arrow should go **forward**
-  current = (current + 1) % images.length;
+  // current = (current + 1) % images.length;
+  current = (current - 1 + images.length) % images.length;
+
   showImage(current);
   updateDots();
 });
