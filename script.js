@@ -27,7 +27,6 @@ prevBtn.addEventListener('click', () => {
 
 // Initialize
 showImage(current);
-updateDots();
 
 
 const dotsContainer = document.querySelector('.carousel-dots');
