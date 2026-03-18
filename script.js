@@ -11,7 +11,7 @@ function showImage(index) {
   images[index].classList.add('active');
 }
 
-prevBtn.addEventListener('click', () => {
+nextBtn.addEventListener('click', () => {
   // Left arrow should go **back**
   current = (current - 1 + images.length) % images.length;
   showImage(current);
