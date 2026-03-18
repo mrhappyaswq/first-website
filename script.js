@@ -11,26 +11,23 @@ function showImage(index) {
   images[index].classList.add('active');
 }
 
+// Next button: move forward
 nextBtn.addEventListener('click', () => {
-  // Left arrow should go **back**
-    current = (current + 1) % images.length;
-
-  // current = (current - 1 + images.length) % images.length;
+  current = (current + 1) % images.length; // move to next image, wrap around
   showImage(current);
   updateDots();
 });
 
+// Prev button: move backward
 prevBtn.addEventListener('click', () => {
-  // Right arrow should go **forward**
-  // current = (current + 1) % images.length;
-  // current = (current - 1 + images.length) % images.length;
-
+  current = (current - 1 + images.length) % images.length; // move to previous image, wrap around
   showImage(current);
   updateDots();
 });
 
 // Initialize
 showImage(current);
+updateDots();
 
 
 const dotsContainer = document.querySelector('.carousel-dots');
