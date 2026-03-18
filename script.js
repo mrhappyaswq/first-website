@@ -11,14 +11,14 @@ function showImage(index) {
   images[index].classList.add('active');
 }
 
-nextBtn.addEventListener('click', () => {
+prevBtn.addEventListener('click', () => {
   // Left arrow should go **back**
   current = (current - 1 + images.length) % images.length;
   showImage(current);
   updateDots();
 });
 
-prevBtn.addEventListener('click', () => {
+nextBtn.addEventListener('click', () => {
   // Right arrow should go **forward**
   current = (current + 1) % images.length;
   showImage(current);
@@ -49,15 +49,3 @@ function updateDots() {
   dots[current].classList.add('active');
 }
 
-// Update dots on prev/next
-prevBtn.addEventListener('click', () => {
-  current = (current - 1 + images.length) % images.length;
-  showImage(current);
-  updateDots();
-});
-
-nextBtn.addEventListener('click', () => {
-  current = (current + 1) % images.length;
-  showImage(current);
-  updateDots();
-});
