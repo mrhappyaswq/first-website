@@ -145,6 +145,50 @@ footer {
   }
 }
 
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 600px; /* adjust as needed */
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.carousel-images {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-images img {
+  min-width: 100%;
+  display: none; /* hide all images by default */
+}
+
+.carousel-images img.active {
+  display: block; /* only active image shows */
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
 /* Responsive for smaller screens */
 @media (max-width: 600px) {
   header {
