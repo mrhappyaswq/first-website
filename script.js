@@ -12,13 +12,17 @@ function showImage(index) {
 }
 
 prevBtn.addEventListener('click', () => {
+  // Left arrow should go **back**
   current = (current - 1 + images.length) % images.length;
   showImage(current);
+  updateDots();
 });
 
 nextBtn.addEventListener('click', () => {
+  // Right arrow should go **forward**
   current = (current + 1) % images.length;
   showImage(current);
+  updateDots();
 });
 
 // Initialize
