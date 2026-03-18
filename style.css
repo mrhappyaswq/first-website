@@ -209,6 +209,32 @@ footer {
   display: block;   /* show only active image */
 }
 
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+}
+
+.carousel-dots span {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.carousel-dots span.active {
+  width: 20px;                     /* slick stretched effect */
+  background-color: var(--accent); /* highlight active */
+  border-radius: 6px;              /* slightly rounded rectangle */
+}
+
 /* Responsive for smaller screens */
 @media (max-width: 600px) {
   header {
