@@ -195,9 +195,6 @@ footer {
 .prev { left: 10px; }
 .next { right: 10px; }
 
-.prev { left: 10px; }
-.next { right: 10px; }
-
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
 }
