@@ -6,6 +6,11 @@
   --text: #333;
 }
 
+/* Offset sections so header doesn't cover content */
+[id] {
+  scroll-margin-top: 80px; /* height of your sticky header + some space */
+}
+
 html {
   scroll-behavior: smooth;
 }
