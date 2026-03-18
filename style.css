@@ -147,10 +147,10 @@ footer {
 
 .carousel {
   position: relative;
-  width: 100%;
-  max-width: 600px; /* adjust as needed */
-  margin: 0 auto;
-  overflow: hidden;
+  width: 100%;         /* full width of container */
+  max-width: 600px;    /* limit width so images don’t overflow */
+  margin: 0 auto;      /* center on page */
+  overflow: hidden;    /* hide overflow outside container */
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
@@ -180,13 +180,29 @@ footer {
   font-size: 1.5rem;
   cursor: pointer;
   border-radius: 50%;
+  z-index: 10;
 }
+
+.prev { left: 10px; }
+.next { right: 10px; }
 
 .prev { left: 10px; }
 .next { right: 10px; }
 
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
+}
+
+.carousel img {
+  width: 100%;      /* scale image to container width */
+  height: auto;     /* maintain aspect ratio */
+  display: none;    /* hide by default */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.carousel img.active {
+  display: block;   /* show only active image */
 }
 
 /* Responsive for smaller screens */
