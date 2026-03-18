@@ -44,99 +44,123 @@
     </div>
 
     <!-- Inside the .container, replace the existing projects card with: -->
-<div class="card" id="projects">
-  <h2>Projects</h2>
-
-  <!-- Hardware Projects -->
-  <h3>Hardware Projects</h3>
-
-  <div class="project-item">
-    <div class="project-text">
-      <h4>Rhombic Dodecahedron Lamp</h4>
-      <p>
-        Developed a custom lamp by putting individually addressable LEDs and a mirrored finish inside a rhombic dodecahedron I made. Used a microcontroller to program various light patterns that could be cycled using a button.
-      </p>
+    <div class="card" id="projects">
+      <h2>Projects</h2>
+      
+      <div class="projects-grid">
+        <!-- NorthStar: Focus Tool -->
+        <div class="project-item">
+          <!-- <div class="project-image">
+            <img src="images/northstar-screenshot.png" alt="NorthStar app screenshot" />
+          </div> -->
+          <div class="project-text">
+            <h3>NorthStar: Focus Tool</h3>
+            <p>
+              A recursive to-do list app to help focus on one task at a time. Pinned tasks stay on the screen. Available on the Mac App Store: 
+              <a href="https://apps.apple.com/us/app/northstar-focus-tool/id6746905176?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store - NorthStar</a>
+            </p>
+          </div>
+        </div>
+    
+        <!-- Rhombic Dodecahedron Lamp -->
+        <div class="project-item">
+          <!-- <div class="project-image">
+            <img src="images/rhombic-lamp.jpg" alt="Rhombic dodecahedron lamp" />
+          </div> -->
+          <div class="project-text">
+            <h3>Rhombic Dodecahedron Lamp</h3>
+            <p>
+              Developed a custom lamp with individually addressable LEDs and a mirrored finish inside a rhombic dodecahedron. Used a microcontroller to program light patterns cycled with a button.
+            </p>
+          </div>
+        </div>
+    
+        <!-- Brake Light Circuit Board -->
+        <div class="project-item">
+          <!-- <div class="project-image">
+            <img src="images/brake-light-board.jpg" alt="Brake light circuit board" />
+          </div> -->
+          <div class="project-text">
+            <h3>Brake Light Circuit Board</h3>
+            <p>
+              Designed and implemented a brake light circuit board using KiCad.
+            </p>
+          </div>
+        </div>
+    
+        <!-- Building My PC -->
+        <div class="project-item">
+          <div class="project-text">
+            <h3>Building My PC</h3>
+            <p>
+              Built a high-performance PC, gaining experience with hardware, system optimization, and part compatibility.
+            </p>
+          </div>
+        </div>
+    
+        <!-- Solar Powered Weather Station -->
+        <div class="project-item">
+          <!-- <div class="project-image">
+            <img src="images/solar-weather-station.jpg" alt="Solar weather station" />
+          </div> -->
+          <div class="project-text">
+            <h3>Solar Powered Weather Station</h3>
+            <p>
+              Designed a solar-powered weather station using an ESP32 microcontroller, displaying sensor data on an LCD screen and a webpage hosted by the ESP32.
+            </p>
+          </div>
+        </div>
+    
+        <!-- Stock Trading Neural Network -->
+        <div class="project-item">
+          <!-- <div class="project-image">
+            <img src="images/neural-network-chart.png" alt="Neural network training chart" />
+          </div> -->
+          <div class="project-text">
+            <h3>Stock Trading Neural Network</h3>
+            <p>
+              Python project using the NEAT library to train a neural network for stock trading. Scrapes live stock data and simulates trading to learn buy/sell behavior.
+            </p>
+          </div>
+        </div>
+    
+        <!-- Personal Website -->
+        <div class="project-item">
+          <div class="project-text">
+            <h3>Personal Website</h3>
+            <p>
+              Built using HTML and CSS to showcase my work: <a href="https://herscheyman.top" target="_blank" rel="noopener noreferrer">herscheyman.top</a>
+            </p>
+          </div>
+        </div>
+    
+        <!-- Car Buying Assistant -->
+        <div class="project-item">
+          <!-- <div class="project-image">
+            <img src="images/car-assistant.jpg" alt="Car buying assistant" />
+          </div> -->
+          <div class="project-text">
+            <h3>Car Buying Assistant</h3>
+            <p>
+              A program to simplify buying a car. Scrapes Facebook Marketplace, filters listings, checks Kelley Blue Book prices, and sends the best deals to a phone.
+            </p>
+          </div>
+        </div>
+    
+        <!-- Goal Organizer App -->
+        <div class="project-item">
+          <!-- <div class="project-image">
+            <img src="images/goal-organizer.jpg" alt="Goal organizer app" />
+          </div> -->
+          <div class="project-text">
+            <h3>Goal Organizer App</h3>
+            <p>
+              Swift app to help organize and prioritize goals, creating a daily schedule based on them.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-
-  <div class="project-item">
-    <div class="project-text">
-      <h4>Brake Light Circuit Board</h4>
-      <p>
-        Designed and implemented a brake light circuit board using KiCad.
-      </p>
-    </div>
-  </div>
-
-  <div class="project-item">
-    <div class="project-text">
-      <h4>Building My PC</h4>
-      <p>
-        Built a high-performance PC which gave me experience with hardware, system optimization, and part compatibility.
-      </p>
-    </div>
-  </div>
-
-  <div class="project-item">
-    <div class="project-text">
-      <h4>Solar Powered Weather Station</h4>
-      <p>
-        Designed a solar-powered weather station using an ESP32 microcontroller which displayed sensor data on a small LCD screen and on a webpage hosted by the ESP32.
-      </p>
-    </div>
-  </div>
-
-  <!-- Software Projects -->
-  <h3>Software Projects</h3>
-
-  <div class="project-item">
-    <div class="project-text">
-      <h4>NorthStar: Focus Tool</h4>
-      <p>
-        NorthStar is an app I made to help myself focus on one task at a time. NorthStar is a recursive to-do list, and when a task is pinned, it will remain on the screen at all times, keeping you on track. Available on the Mac App Store: 
-        <a href="https://apps.apple.com/us/app/northstar-focus-tool/id6746905176?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store - NorthStar</a>
-      </p>
-      <!-- <div class="project-image"> <img src="images/neural-network-chart.png" alt="Neural network training chart" /> </div> -->
-    </div>
-  </div>
-
-  <div class="project-item">
-    <div class="project-text">
-      <h4>Stock Trading Neural Network</h4>
-      <p>
-        A side project where I trained a neural network to trade stocks using the NEAT Python library. It scrapes live stock data and interacts with a simulated trading environment I made to learn buy/sell behavior over time. Did it work? Not yet, but I continue working on it.
-      </p>
-    </div>
-  </div>
-
-  <div class="project-item">
-    <div class="project-text">
-      <h4>Personal Website</h4>
-      <p>
-        Using HTML and CSS, I made a personal website where you can learn more about me: <a href="https://herscheyman.top" target="_blank" rel="noopener noreferrer">herscheyman.top</a>
-      </p>
-    </div>
-  </div>
-
-  <div class="project-item">
-    <div class="project-text">
-      <h4>Car Buying Assistant</h4>
-      <p>
-        Made a program to simplify buying a car. It scraped listings from Facebook Marketplace, filtered them based on user preferences, checked prices using Kelley Blue Book, and sent the best deals to a mobile phone.
-      </p>
-    </div>
-  </div>
-
-  <div class="project-item">
-    <div class="project-text">
-      <h4>Goal Organizer App</h4>
-      <p>
-        Made a Swift app for my phone to help organize and prioritize my goals and create a daily schedule based on those goals.
-      </p>
-    </div>
-  </div>
-</div>
-
 
 
 
