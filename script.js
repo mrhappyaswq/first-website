@@ -84,8 +84,8 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
       // const maxDist = 400;
       
-      const rotateX = (dx / maxDist) * 10;   // left/right → Y axis
-      const rotateY = -(dy / maxDist) * 10;  // up/down → X axis
+      const rotateX = (dx / maxDist) * 25;   // left/right → Y axis
+      const rotateY = -(dy / maxDist) * 25;  // up/down → X axis
 
       activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
     }
