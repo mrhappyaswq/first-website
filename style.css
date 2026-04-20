@@ -8,7 +8,7 @@
 
 /* Offset sections so header doesn't cover content */
 [id] {
-  scroll-margin-top: 80px; /* height of your sticky header + some space */
+  scroll-margin-top: 80px;
 }
 
 html {
@@ -104,7 +104,7 @@ footer {
 
 .project-item {
   display: flex;
-  flex-direction: column; /* Stack image above text by default */
+  flex-direction: column;
   background-color: var(--card-bg);
   padding: 1rem;
   border-radius: 10px;
@@ -150,42 +150,46 @@ footer {
   }
 }
 
+/* ─── Carousel ─────────────────────────────────────────────── */
+
 .carousel {
   position: relative;
-  width: 100%;         /* full width of container */
-  max-width: 600px;    /* limit width so images don’t overflow */
-  max-height: 800px;
-  margin: 2rem auto;      /* center on page */
-  overflow: hidden;    /* hide overflow outside container */
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  perspective: 1000px;   /* enables 3D depth for tilt effect */
+  overflow: visible;     /* lets the image pop out on hover */
 }
 
 .carousel-images {
-  display: flex;
-  transition: transform 0.5s ease;
+  position: relative;
+  width: 100%;
 }
 
 .carousel-images img {
-  width: 100%;       /* scale image to container width */
-  height: auto;      /* maintain aspect ratio */
-  display: none;     /* hide by default */
+  width: 100%;
+  height: auto;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  object-fit: contain; /* ensures full image fits inside container */
+  object-fit: contain;
+  display: block;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.15s ease, opacity 0.3s ease;
+
+  /* Stack all images on top of each other */
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .carousel-images img.active {
-  display: block;    /* show only active image */
-}
-
-.carousel {
-  perspective: 1000px;
-}
-
-.carousel-images img {
-  transition: transform 0.15s ease;
-  transform-style: preserve-3d;
+  position: relative;   /* active image holds the container height */
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .prev, .next {
@@ -209,18 +213,6 @@ footer {
   background-color: rgba(0,0,0,0.8);
 }
 
-.carousel img {
-  width: 100%;      /* scale image to container width */
-  height: auto;     /* maintain aspect ratio */
-  display: none;    /* hide by default */
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.carousel img.active {
-  display: block;   /* show only active image */
-}
-
 .carousel-dots {
   position: absolute;
   bottom: 10px;
@@ -241,28 +233,20 @@ footer {
   cursor: pointer;
 }
 
-.carousel {
-  perspective: 1000px;
-}
-
-.carousel-images img {
-  transition: transform 0.15s ease;
-  transform-style: preserve-3d;
-  will-change: transform; /* ✅ helps GPU-accelerate the effect */
-}
-
 .carousel-dots span.active {
-  width: 20px;                     /* slick stretched effect */
-  background-color: var(--accent); /* highlight active */
-  border-radius: 6px;              /* slightly rounded rectangle */
+  width: 20px;
+  background-color: var(--accent);
+  border-radius: 6px;
 }
 
-/* Responsive for smaller screens */
+/* ─── Responsive ────────────────────────────────────────────── */
+
 @media (max-width: 600px) {
   header {
     flex-direction: column;
     align-items: flex-start;
   }
+
   nav {
     margin-top: 0.5rem;
   }
