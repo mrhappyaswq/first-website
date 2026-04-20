@@ -46,3 +46,32 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
   showImage(current);
 });
+
+// Mouse tilt effect
+carousel.addEventListener('mousemove', (e) => {
+  const activeImg = carousel.querySelector('.carousel-images img.active');
+  if (!activeImg) return;
+
+  const rect = carousel.getBoundingClientRect();
+
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+  const rotateY = x * 10;   // adjust strength here
+  const rotateX = -y * 10;
+
+  activeImg.style.transform = `
+    rotateX(${rotateX}deg)
+    rotateY(${rotateY}deg)
+    scale(1.03)
+  `;
+});
+
+// Mouse Rotations
+carousel.addEventListener('mouseleave', () => {
+  const activeImg = carousel.querySelector('.carousel-images img.active');
+  if (!activeImg) return;
+
+  activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+});
+
