@@ -8,6 +8,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   const nextBtn = carousel.querySelector('.next');
   const dotsContainer = carousel.querySelector('.carousel-dots');
   let current = 0;
+  let mouseOverCarousel = false;
 
   // Create dots
   images.forEach((_, index) => {
@@ -46,45 +47,42 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
   showImage(current);
 
-// Track mouse over the whole page for the "looking at cursor" effect
+  // Track whether mouse is over the carousel
+  carousel.addEventListener('mouseenter', () => {
+    mouseOverCarousel = true;
+  });
+
+  carousel.addEventListener('mouseleave', () => {
+    mouseOverCarousel = false;
+    // Reset to neutral when mouse leaves carousel
+    const activeImg = carousel.querySelector('.carousel-images img.active');
+    if (activeImg) {
+      activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+    }
+  });
+
+  // Global mouse tracking — always fires
   document.addEventListener('mousemove', (e) => {
     const activeImg = carousel.querySelector('.carousel-images img.active');
     if (!activeImg) return;
 
-    // If mouse is directly over the image, do nothing (handled by mouseenter)
-    if (activeImg.matches(':hover')) return;
+    if (mouseOverCarousel) {
+      // Mouse is ON the carousel: pop out, no rotation
+      activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.06) translateZ(30px)';
+    } else {
+      // Mouse is anywhere else on the page: rotate to face it
+      const rect = activeImg.getBoundingClientRect();
+      const imgCenterX = rect.left + rect.width / 2;
+      const imgCenterY = rect.top + rect.height / 2;
 
-    const rect = activeImg.getBoundingClientRect();
+      const dx = e.clientX - imgCenterX;
+      const dy = e.clientY - imgCenterY;
 
-    // Get center of the image
-    const imgCenterX = rect.left + rect.width / 2;
-    const imgCenterY = rect.top + rect.height / 2;
+      // Normalize so rotation strength doesn't depend on screen size
+      const rotateY =  (dx / window.innerWidth)  * 30;
+      const rotateX = -(dy / window.innerHeight) * 30;
 
-    // Vector from image center to mouse
-    const dx = e.clientX - imgCenterX;
-    const dy = e.clientY - imgCenterY;
-
-    // Normalize by screen size so strength is consistent
-    const rotateY =  (dx / window.innerWidth)  * 30;
-    const rotateX = -(dy / window.innerHeight) * 30;
-
-    activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
+      activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
+    }
   });
-
-  // When hovering directly on the image: flat + pop out
-  carousel.addEventListener('mouseenter', () => {
-    const activeImg = carousel.querySelector('.carousel-images img.active');
-    if (!activeImg) return;
-    activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.05) translateZ(30px)';
-  });
-
-  // When leaving the image area: keep tracking mouse (mousemove handles it)
-  carousel.addEventListener('mouseleave', () => {
-    const activeImg = carousel.querySelector('.carousel-images img.active');
-    if (!activeImg) return;
-    activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-  });
-
 });
-
-
