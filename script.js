@@ -54,14 +54,13 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
   carousel.addEventListener('mouseleave', () => {
     mouseOverCarousel = false;
-    // Reset to neutral when mouse leaves carousel
     const activeImg = carousel.querySelector('.carousel-images img.active');
     if (activeImg) {
       activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
     }
   });
 
-  // Global mouse tracking — always fires
+  // Global mouse tracking
   document.addEventListener('mousemove', (e) => {
     const activeImg = carousel.querySelector('.carousel-images img.active');
     if (!activeImg) return;
@@ -70,21 +69,24 @@ document.querySelectorAll('.carousel').forEach(carousel => {
       // Mouse is ON the carousel: pop out, no rotation
       activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.06) translateZ(30px)';
     } else {
-        const dx = e.clientX - imgCenterX;
-        const dy = e.clientY - imgCenterY;
-        
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const maxDist = 800;
-        const strength = Math.min(distance / maxDist, 1) * 25; // max 25 degrees
-        
-        // atan2 gives the true angle from image center to mouse
-        const angle = Math.atan2(dy, dx);
-        
-        // Convert angle to per-axis rotation correctly
-        const rotateY =  Math.cos(angle) * strength;  // left/right tilt
-        const rotateX = -Math.sin(angle) * strength;  // up/down tilt
-        
-        activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
+      // Mouse is anywhere else: rotate to face it
+      const rect = activeImg.getBoundingClientRect();
+      const imgCenterX = rect.left + rect.width / 2;
+      const imgCenterY = rect.top + rect.height / 2;
+
+      const dx = e.clientX - imgCenterX;
+      const dy = e.clientY - imgCenterY;
+
+      // Use actual distance and angle for correct rotation on both axes
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const maxDist = 800;
+      const strength = Math.min(distance / maxDist, 1) * 25;
+
+      const angle = Math.atan2(dy, dx);
+      const rotateY =  Math.sin(angle) * strength;
+      const rotateX = -Math.cos(angle) * strength;
+
+      activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
     }
   });
 });
