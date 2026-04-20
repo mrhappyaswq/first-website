@@ -153,7 +153,7 @@ footer {
 .carousel {
   position: relative;
   width: 100%;         /* full width of container */
-  max-width: 600px;    /* limit width so images don’t overflow */
+  max-width: 400px;    /* limit width so images don’t overflow */
   margin: 2rem auto;      /* center on page */
   overflow: hidden;    /* hide overflow outside container */
   border-radius: 10px;
