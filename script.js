@@ -73,3 +73,43 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1) translateZ(0px)';
   });
 });
+
+
+// Track mouse over the whole page for the "looking at cursor" effect
+  document.addEventListener('mousemove', (e) => {
+    const activeImg = carousel.querySelector('.carousel-images img.active');
+    if (!activeImg) return;
+
+    // If mouse is directly over the image, do nothing (handled by mouseenter)
+    if (activeImg.matches(':hover')) return;
+
+    const rect = activeImg.getBoundingClientRect();
+
+    // Get center of the image
+    const imgCenterX = rect.left + rect.width / 2;
+    const imgCenterY = rect.top + rect.height / 2;
+
+    // Vector from image center to mouse
+    const dx = e.clientX - imgCenterX;
+    const dy = e.clientY - imgCenterY;
+
+    // Normalize by screen size so strength is consistent
+    const rotateY =  (dx / window.innerWidth)  * 30;
+    const rotateX = -(dy / window.innerHeight) * 30;
+
+    activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
+  });
+
+  // When hovering directly on the image: flat + pop out
+  carousel.addEventListener('mouseenter', () => {
+    const activeImg = carousel.querySelector('.carousel-images img.active');
+    if (!activeImg) return;
+    activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.05) translateZ(30px)';
+  });
+
+  // When leaving the image area: keep tracking mouse (mousemove handles it)
+  carousel.addEventListener('mouseleave', () => {
+    const activeImg = carousel.querySelector('.carousel-images img.active');
+    if (!activeImg) return;
+    activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+  });
