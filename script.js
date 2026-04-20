@@ -75,12 +75,16 @@ document.querySelectorAll('.carousel').forEach(carousel => {
       const imgCenterX = rect.left + rect.width / 2;
       const imgCenterY = rect.top + rect.height / 2;
 
+      const maxDist = 600;
+      const clampedX = Math.max(-maxDist, Math.min(maxDist, dx));
+      const clampedY = Math.max(-maxDist, Math.min(maxDist, dy));
+      
       const dx = e.clientX - imgCenterX;
       const dy = e.clientY - imgCenterY;
 
       // Normalize so rotation strength doesn't depend on screen size
-      const rotateY =  (dx / window.innerWidth)  * 30;
-      const rotateX = -(dy / window.innerHeight) * 30;
+      const rotateY =  (clampedX / maxDist) * 25;
+      const rotateX = -(clampedY / maxDist) * 25;
 
       activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
     }
