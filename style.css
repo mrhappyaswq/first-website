@@ -241,6 +241,16 @@ footer {
   cursor: pointer;
 }
 
+.carousel {
+  perspective: 1000px;
+}
+
+.carousel-images img {
+  transition: transform 0.15s ease;
+  transform-style: preserve-3d;
+  will-change: transform; /* ✅ helps GPU-accelerate the effect */
+}
+
 .carousel-dots span.active {
   width: 20px;                     /* slick stretched effect */
   background-color: var(--accent); /* highlight active */
