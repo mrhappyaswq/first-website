@@ -79,12 +79,13 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
       // Use actual distance and angle for correct rotation on both axes
       const distance = Math.sqrt(dx * dx + dy * dy);
-      const maxDist = 800;
+      const maxDist = 400;
       const strength = Math.min(distance / maxDist, 1) * 25;
 
-      const angle = Math.atan2(dy, dx);
-      const rotateY =  Math.sin(angle) * strength;
-      const rotateX = -Math.cos(angle) * strength;
+      // const maxDist = 400;
+      
+      const rotateY = (dx / maxDist) * 25;   // left/right → Y axis
+      const rotateX = -(dy / maxDist) * 25;  // up/down → X axis
 
       activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
     }
