@@ -179,6 +179,15 @@ footer {
   display: block;    /* show only active image */
 }
 
+.carousel {
+  perspective: 1000px;
+}
+
+.carousel-images img {
+  transition: transform 0.15s ease;
+  transform-style: preserve-3d;
+}
+
 .prev, .next {
   position: absolute;
   top: 50%;
