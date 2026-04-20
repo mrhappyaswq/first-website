@@ -70,23 +70,21 @@ document.querySelectorAll('.carousel').forEach(carousel => {
       // Mouse is ON the carousel: pop out, no rotation
       activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.06) translateZ(30px)';
     } else {
-      // Mouse is anywhere else on the page: rotate to face it
-      const rect = activeImg.getBoundingClientRect();
-      const imgCenterX = rect.left + rect.width / 2;
-      const imgCenterY = rect.top + rect.height / 2;
-
-      const maxDist = 600;
-      const clampedX = Math.max(-maxDist, Math.min(maxDist, dx));
-      const clampedY = Math.max(-maxDist, Math.min(maxDist, dy));
-      
-      const dx = e.clientX - imgCenterX;
-      const dy = e.clientY - imgCenterY;
-
-      // Normalize so rotation strength doesn't depend on screen size
-      const rotateY =  (clampedX / maxDist) * 25;
-      const rotateX = -(clampedY / maxDist) * 25;
-
-      activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
+        const dx = e.clientX - imgCenterX;
+        const dy = e.clientY - imgCenterY;
+        
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const maxDist = 800;
+        const strength = Math.min(distance / maxDist, 1) * 25; // max 25 degrees
+        
+        // atan2 gives the true angle from image center to mouse
+        const angle = Math.atan2(dy, dx);
+        
+        // Convert angle to per-axis rotation correctly
+        const rotateY =  Math.cos(angle) * strength;  // left/right tilt
+        const rotateX = -Math.sin(angle) * strength;  // up/down tilt
+        
+        activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
     }
   });
 });
