@@ -154,6 +154,7 @@ footer {
   position: relative;
   width: 100%;         /* full width of container */
   max-width: 250px;    /* limit width so images don’t overflow */
+  max-height: 300px;
   margin: 2rem auto;      /* center on page */
   overflow: hidden;    /* hide overflow outside container */
   border-radius: 10px;
