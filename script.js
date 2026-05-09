@@ -1,3 +1,6 @@
+// Toggle image tilt effect globally
+const enableImgTilt = false;
+
 // Set current year in footer
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -14,11 +17,13 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   images.forEach((_, index) => {
     const dot = document.createElement('span');
     if (index === 0) dot.classList.add('active');
+
     dot.addEventListener('click', () => {
       current = index;
       showImage(current);
       updateDots();
     });
+
     dotsContainer.appendChild(dot);
   });
 
@@ -47,6 +52,9 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
   showImage(current);
 
+  // Skip all tilt behavior if disabled
+  if (!enableImgTilt) return;
+
   // Track whether mouse is over the carousel
   carousel.addEventListener('mouseenter', () => {
     mouseOverCarousel = true;
@@ -54,7 +62,9 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
   carousel.addEventListener('mouseleave', () => {
     mouseOverCarousel = false;
+
     const activeImg = carousel.querySelector('.carousel-images img.active');
+
     if (activeImg) {
       activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
     }
@@ -67,7 +77,8 @@ document.querySelectorAll('.carousel').forEach(carousel => {
 
     if (mouseOverCarousel) {
       // Mouse is ON the carousel: pop out, no rotation
-      activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.06) translateZ(30px)';
+      activeImg.style.transform =
+        'rotateX(0deg) rotateY(0deg) scale(1.06) translateZ(30px)';
     } else {
       // Mouse is anywhere else: rotate to face it
       const rect = activeImg.getBoundingClientRect();
@@ -77,17 +88,13 @@ document.querySelectorAll('.carousel').forEach(carousel => {
       const dx = e.clientX - imgCenterX;
       const dy = e.clientY - imgCenterY;
 
-      // Use actual distance and angle for correct rotation on both axes
-      const distance = Math.sqrt(dx * dx + dy * dy);
       const maxDist = 800;
-      const strength = Math.min(distance / maxDist, 1) * 25;
 
-      // const maxDist = 400;
-      
-      const rotateX = (dx / maxDist) * 25;   // left/right → Y axis
-      const rotateY = -(dy / maxDist) * 25;  // up/down → X axis
+      const rotateX = (dx / maxDist) * 25;
+      const rotateY = -(dy / maxDist) * 25;
 
-      activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
+      activeImg.style.transform =
+        `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
     }
   });
 });
