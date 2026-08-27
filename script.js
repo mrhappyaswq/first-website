@@ -1,98 +1,274 @@
-// Toggle image tilt effect globally
-const enableImgTilt = false;
+:root {
+  --primary: #2c3e50;
+  --accent: #3498db;
+  --bg: #f4f4f4;
+  --card-bg: #fff;
+  --text: #333;
+}
 
-// Set current year in footer
-document.getElementById('year').textContent = new Date().getFullYear();
+/* Offset sections so header doesn't cover content */
+[id] {
+  scroll-margin-top: 80px;
+}
 
-// Initialize each carousel independently
-document.querySelectorAll('.carousel').forEach(carousel => {
-  const images = carousel.querySelectorAll('.carousel-images img');
-  const prevBtn = carousel.querySelector('.prev');
-  const nextBtn = carousel.querySelector('.next');
-  const dotsContainer = carousel.querySelector('.carousel-dots');
-  let current = 0;
-  let mouseOverCarousel = false;
+html {
+  scroll-behavior: smooth;
+}
 
-  // Create dots
-  images.forEach((_, index) => {
-    const dot = document.createElement('span');
-    if (index === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => {
-      current = index;
-      showImage(current);
-      updateDots();
-    });
-    dotsContainer.appendChild(dot);
-  });
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
 
-  function showImage(index) {
-    images.forEach(img => img.classList.remove('active'));
-    images[index].classList.add('active');
+header {
+  background-color: var(--primary);
+  color: white;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+  margin-left: 1rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.card {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: var(--primary);
+}
+
+.card h3 {
+  margin-top: 1.4rem;
+  margin-bottom: -0.7rem;
+  color: var(--accent);
+}
+
+#profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-bottom: 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.links a {
+  margin: 0 0.5rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.project-item {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.project-text h3 {
+  margin-top: 0;
+  color: var(--accent);
+}
+
+.project-text p {
+  margin-bottom: 1rem;
+}
+
+/* Images inside projects */
+.project-image {
+  margin-bottom: 1rem;
+}
+
+.project-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Optional: place image to right on larger screens */
+@media (min-width: 900px) {
+  .project-item {
+    flex-direction: row;
+    align-items: flex-start;
   }
 
-  function updateDots() {
-    const dots = dotsContainer.querySelectorAll('span');
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[current].classList.add('active');
+  .project-text {
+    flex: 1 1 60%;
   }
 
-  nextBtn.addEventListener('click', () => {
-    current = (current + 1) % images.length;
-    showImage(current);
-    updateDots();
-  });
+  .project-image {
+    flex: 0 0 35%;
+    margin-left: 1.5rem;
+    margin-bottom: 0;
+  }
+}
 
-  prevBtn.addEventListener('click', () => {
-    current = (current - 1 + images.length) % images.length;
-    showImage(current);
-    updateDots();
-  });
+/* ─── Carousel ─────────────────────────────────────────────── */
 
-  showImage(current);
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  perspective: 1000px;   /* enables 3D depth for tilt effect */
+  overflow: visible;     /* lets the image pop out on hover */
+}
 
-  // Track whether mouse is over the carousel
-  carousel.addEventListener('mouseenter', () => {
-    mouseOverCarousel = true;
-  });
+.carousel-images {
+  position: relative;
+  width: 100%;
+  height: 360px;          /* NEW: fixed box so every carousel is the same size */
+  border-radius: 8px;
+  overflow: hidden;       /* keeps rounded corners clean with object-fit: cover */
+}
 
-  carousel.addEventListener('mouseleave', () => {
-    mouseOverCarousel = false;
-    const activeImg = carousel.querySelector('.carousel-images img.active');
-    if (activeImg) {
-      activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-    }
-  });
+.carousel-images img {
+  width: 100%;
+  height: 100%;            /* CHANGED: fill the fixed box instead of auto */
+  border-radius: 8px;
+  object-fit: cover;       /* CHANGED: crop to fill uniformly instead of "contain" */
+  display: block;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.15s ease, opacity 0.3s ease;
 
-  // Global mouse tracking
-  document.addEventListener('mousemove', (e) => {
-    if (!enableImgTilt) return;
+  /* Stack all images on top of each other */
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+}
 
-    const activeImg = carousel.querySelector('.carousel-images img.active');
-    if (!activeImg) return;
+.carousel-images img.active {
+  /* CHANGED: no longer needs position: relative — the fixed-height
+     parent now controls box size, so this only needs to be visible */
+  opacity: 1;
+  pointer-events: auto;
+}
 
-    if (mouseOverCarousel) {
-      // Mouse is ON the carousel: pop out, no rotation
-      activeImg.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1.06) translateZ(30px)';
-    } else {
-      // Mouse is anywhere else: rotate to face it
-      const rect = activeImg.getBoundingClientRect();
-      const imgCenterX = rect.left + rect.width / 2;
-      const imgCenterY = rect.top + rect.height / 2;
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+}
 
-      const dx = e.clientX - imgCenterX;
-      const dy = e.clientY - imgCenterY;
+.prev { left: 10px; }
+.next { right: 10px; }
 
-      // Use actual distance and angle for correct rotation on both axes
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      const maxDist = 800;
-      const strength = Math.min(distance / maxDist, 1) * 25;
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
 
-      // const maxDist = 400;
-      
-      const rotateX = (dx / maxDist) * 25;   // left/right → Y axis
-      const rotateY = -(dy / maxDist) * 25;  // up/down → X axis
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10;
+}
 
-      activeImg.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
-    }
-  });
-});
+.carousel-dots span {
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.carousel-dots span.active {
+  width: 20px;
+  background-color: var(--accent);
+  border-radius: 6px;
+}
+
+/* ─── Responsive ────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav {
+    margin-top: 0.5rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-item {
+    flex-direction: column;
+  }
+
+  .project-image {
+    margin-left: 0;
+    margin-bottom: 1rem;
+  }
+
+  .carousel-images {
+    height: 260px;          /* NEW: slightly shorter box on small screens */
+  }
+}
